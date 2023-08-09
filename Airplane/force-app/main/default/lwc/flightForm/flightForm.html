@@ -1,0 +1,36 @@
+<template>
+    <template if:false={isSucess}>
+      <lightning-card class="slds-card__body slds-card__body_inner" title="Calcular rota para viagem" icon-name="standard:tour_check">
+        <div>
+          <lightning-record-edit-form object-api-name="Flight__c" onsubmit={handleSubmit}>
+            <lightning-messages></lightning-messages>
+            <div class="slds-grid slds-gutters">
+              <div class="slds-col">
+                <lightning-input-field field-name="Departure_Airport__c"></lightning-input-field>
+              </div>
+              <div class="slds-col">
+                <lightning-input-field field-name="Arrival_Airport__c"></lightning-input-field>
+              </div>
+            </div>
+            <div class="slds-align_absolute-center">
+              <lightning-button type="submit" label="Calcular"></lightning-button>
+            </div>
+          </lightning-record-edit-form>
+        </div>
+      </lightning-card>
+    </template>
+    <template if:true={isSucess}>
+      <lightning-card class="slds-card__body slds-card__body_inner" title="Detalhes do voo">
+        <div >
+          <p><strong>Aeroporto de partida:</strong> {flightRecord.Departure_Airport__r.Name}</p>
+          <p><strong>Aeroporto de chegada:</strong> {flightRecord.Arrival_Airport__r.Name}</p>
+          <p><strong>Distância do voo:</strong> {flightRecord.Distance__c} km</p>
+        </div>  
+        <div style="margin-top: 10px;">
+          <lightning-button variant="brand-outline" label="Voltar" onclick={handleClick} class="slds-m-left_x-small"></lightning-button>
+          <lightning-button variant="brand-outline" label="Ir para o registro" onclick={setRedirect} class="slds-m-left_x-small"></lightning-button>
+        </div>
+      </lightning-card>   
+      </template>
+  </template>
+  
